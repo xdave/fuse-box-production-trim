@@ -2,7 +2,7 @@ const path = require('path');
 const { FuseBox, JSONPlugin, EnvPlugin, QuantumPlugin } = require('fuse-box');
 
 const homeDir = path.resolve('.', 'src');
-const outDir = path.resolve('', 'dist');
+const outDir = path.resolve('.', 'dist');
 
 const prod = process.env.NODE_ENV === 'production';
 
