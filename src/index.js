@@ -24,7 +24,7 @@ const configureStore = () => {
         composeEnhancers = compose;
     }
 
-    return createStore(reducer, compose(applyMiddleware(middleware)));
+    return createStore(reducer, composeEnhancers(applyMiddleware(middleware)));
 };
 
 const store = configureStore();
