@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "license": "MIT",
-  "scripts":{
+  "scripts": {
     "prebuild": "rimraf .fusebox dist",
     "build": "node fuse",
-    "prod": "cross-env NODE_ENV=production npm -s run build"
+    "prod": "cross-env NODE_ENV=production npm -s run build",
+    "devserver": "npm run -s build -- -d",
+    "prodserver": "cross-env NODE_ENV=production npm run -s build -- -d"
   },
   "devDependencies": {
     "cross-env": "^5.0.1",
     "fuse-box": "2.2.0-beta.16",
     "redux": "^3.7.0",
+    "redux-devtools-extension": "^2.13.2",
     "redux-immutable-state-invariant": "^2.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",

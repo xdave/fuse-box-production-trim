@@ -5,6 +5,8 @@ const reducer = (state, action) => {
     return state;
 };
 
+const someAction = () => ({ type: 'TEST_ACTION' });
+
 const configureStore = () => {
     let composeEnhancers;
     let middleware = [thunk];
@@ -24,7 +26,19 @@ const configureStore = () => {
         composeEnhancers = compose;
     }
 
-    return createStore(reducer, composeEnhancers(applyMiddleware(middleware)));
+    return createStore(reducer, composeEnhancers(applyMiddleware(...middleware)));
 };
 
 const store = configureStore();
+
+window.eventHandler = () => {
+    store.dispatch(someAction());
+};
+
+const app = document.createElement('div');
+app.setAttribute('id', 'app');
+document.querySelector('body').appendChild(app);
+
+app.innerHTML = `
+    <button onClick="eventHandler();">Click</button>
+`;
