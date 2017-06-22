@@ -2,7 +2,7 @@ import { configureStore, someAction } from './store';
 
 const store = configureStore();
 
-window.eventHandler = () => {
+(window as any).eventHandler = () => {
     store.dispatch(someAction());
 };
 

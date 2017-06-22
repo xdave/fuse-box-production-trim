@@ -27,7 +27,7 @@ const fuse = FuseBox.init({
 
 const app = fuse.bundle('app')
     .target('browser')
-    .instructions('> index.js');
+    .instructions('> index.ts');
 
 if (dev) {
     app.watch().hmr();
