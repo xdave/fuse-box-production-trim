@@ -1,8 +1,8 @@
 const { createStore, compose, applyMiddleware } = require('redux');
 const thunk = require('redux-thunk').default;
 
-const reducer = (state, action) => {
-    return state;
+const reducer = (state = '', action) => {
+    return state === 'foo' ? 'bar' : 'foo';
 };
 
 const someAction = () => ({ type: 'TEST_ACTION' });
@@ -39,6 +39,16 @@ const app = document.createElement('div');
 app.setAttribute('id', 'app');
 document.querySelector('body').appendChild(app);
 
-app.innerHTML = `
-    <button onClick="eventHandler();">Click</button>
-`;
+const render = () => {
+    app.innerHTML = `
+        <button onClick="eventHandler();">Click</button>
+        <br />
+        <span>${store.getState()}</span>
+    `;
+}
+
+store.subscribe(() => {
+    render();
+});
+
+store.dispatch(someAction());
