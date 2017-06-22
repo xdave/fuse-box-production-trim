@@ -1,33 +1,4 @@
-const { createStore, compose, applyMiddleware } = require('redux');
-const thunk = require('redux-thunk').default;
-
-const reducer = (state = '', action) => {
-    return state === 'foo' ? 'bar' : 'foo';
-};
-
-const someAction = () => ({ type: 'TEST_ACTION' });
-
-const configureStore = () => {
-    let composeEnhancers;
-    let middleware = [thunk];
-
-    if (process.env.NODE_ENV !== 'production') {
-        const { createLogger } = require('redux-logger');
-        const immutable = require('redux-immutable-state-invariant').default;
-        const { composeWithDevTools } = require('redux-devtools-extension');
-
-        middleware = [
-            immutable(),
-            ...middleware,
-            createLogger({ level: 'info', collapsed: true })
-        ];
-        composeEnhancers = composeWithDevTools({});
-    } else {
-        composeEnhancers = compose;
-    }
-
-    return createStore(reducer, composeEnhancers(applyMiddleware(...middleware)));
-};
+import { configureStore, someAction } from './store';
 
 const store = configureStore();
 
@@ -52,3 +23,4 @@ store.subscribe(() => {
 });
 
 store.dispatch(someAction());
+

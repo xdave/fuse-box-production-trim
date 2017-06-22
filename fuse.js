@@ -11,6 +11,9 @@ const fuse = FuseBox.init({
     homeDir,
     output: path.join(outDir, '$name.js'),
     experimentalFeatures: true,
+    cache: !prod,
+    sourceMaps: !prod,
+    natives: { process: !prod },
     plugins: [
         JSONPlugin(),
         EnvPlugin({ NODE_ENV: process.env.NODE_ENV }),
@@ -24,8 +27,6 @@ const fuse = FuseBox.init({
 
 const app = fuse.bundle('app')
     .target('browser')
-    .cache(!prod)
-    .sourceMaps(!prod)
     .instructions('> index.js');
 
 if (dev) {
