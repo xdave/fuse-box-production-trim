@@ -1,11 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-// The following modules SHOULD be removed in production, as they are not used.
-import { createLogger } from 'redux-logger';
-import immutable from 'redux-immutable-state-invariant';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
 export const reducer = (state = '', action) => {
     return state === 'foo' ? 'bar' : 'foo';
 };
@@ -17,6 +12,13 @@ export const configureStore = () => {
     let middleware = [thunk];
 
     if (process.env.NODE_ENV !== 'production') {
+        // DEVELOPMENT
+
+        // The following modules SHOULD be removed in production, as they are not used.
+        const { createLogger } = require('redux-logger');
+        const immutable = require('redux-immutable-state-invariant').default;
+        const { composeWithDevTools } = require('redux-devtools-extension');
+
         middleware = [
             immutable(),
             ...middleware,
@@ -24,6 +26,7 @@ export const configureStore = () => {
         ];
         composeEnhancers = composeWithDevTools({});
     } else {
+        // PRODUCTION
         composeEnhancers = compose;
     }
 
